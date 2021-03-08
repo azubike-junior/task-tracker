@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(cors())
 
-const port = config.port || 3030
+const port = process.env.PORT || 3030
 
 app.use('/', router)
 

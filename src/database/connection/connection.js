@@ -9,8 +9,6 @@ const connectToDatabase = (config) => {
 
     const db = mongoose.connection;
 
-    db.on('error', console.error.bind(console, 'Mongo Database Error:'))
-
     db.once('open', () => console.log('connecton successful'))
 }
 
