@@ -4,8 +4,6 @@ require ('dotenv').config();
 const config = require('./config/config');
 const { connectToDatabase } = require('./database/connection/connection');
 const router = require('./route/index');
-const { register } = require('./api/controller/auth');
-const { postTask } = require('./api/controller/task');
 
 const app = express()
 
@@ -15,6 +13,8 @@ app.use(express.json());
 
 app.use(cors())
 
+const port = config.port || 3030
+
 app.use('/', router)
 
-app.listen(config.port, () => console.log(`server running on port ${config.port}`))
+app.listen(port, () => console.log(`server running on port ${port}`))

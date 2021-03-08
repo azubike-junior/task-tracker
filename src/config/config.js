@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-const {uri, dbName, port} = process.env
+const {DATABASE_URI, dbName, port} = process.env
 
 const config = {
-    uri,
+    DATABASE_URI,
     dbName,
     port
 }
