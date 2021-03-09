@@ -7,13 +7,12 @@ const taskSchema = new Schema({
         type: String
     },
 
-    date: {
-        type: Date,
-        default: new Date()
+    day: {
+        type: String
     },
-
+  
     reminder: {
-        type: Boolean,
+        type: Boolean, 
         default: false
     }
 })

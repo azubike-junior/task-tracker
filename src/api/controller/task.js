@@ -7,10 +7,10 @@ const getTasks = async (req, res) => {
 }
 
 const postTask = async (req, res) => {
-    const { text } = req.body;
-    const newTask = {text, day: new Date(), reminder: false}
+    const { text, day } = req.body;
+    const newTask = {text, day, reminder: false}
     const task = new Task(newTask);
-    await task.save();
+    await task.save();   
 
     return createResponse(res, {data: task})
 }
@@ -41,7 +41,7 @@ const deleteTaskById = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const {params:{_id}, body:{reminder}} = req
-    const task = await Task.updateOne({_id}, {reminder});
+    await Task.updateOne({_id}, {reminder});
 
     const updTask = await Task.findOne({_id})
 
