@@ -3,7 +3,7 @@ const { successResponse, notFound, createResponse } = require('../utils/http');
 
 const getTasks = async (req, res) => {
     const tasks = await Task.find()
-    return successResponse(res, {data: tasks})
+    return successResponse(res, tasks)
 }
 
 const postTask = async (req, res) => {
@@ -12,7 +12,7 @@ const postTask = async (req, res) => {
     const task = new Task(newTask);
     await task.save();   
 
-    return createResponse(res, {data: task})
+    return createResponse(res, task)
 }
 
 
@@ -22,9 +22,9 @@ const getTaskById = async  (req, res) => {
     const task = await Task.findOne({_id})
 
     if(!task){
-        return notFound(res, {message: 'task not found'})
+        return notFound(res, 'task not found')
     }
-    return successResponse(res, {data: task})
+    return successResponse(res, task)
 }
 
 const deleteTaskById = async (req, res) => {
@@ -36,7 +36,7 @@ const deleteTaskById = async (req, res) => {
     }
 
     await Task.deleteOne({_id})
-    return successResponse(res, {message:'task deleted'})
+    return successResponse(res, 'task deleted')
 }
 
 const updateTask = async (req, res) => {
@@ -45,11 +45,11 @@ const updateTask = async (req, res) => {
 
     const updTask = await Task.findOne({_id})
 
-    return createResponse(res, {data: updTask})
+    return createResponse(res, updTask)
 }
 const deleteTasks = async (req, res) => {
     await Task.deleteMany();
-    return successResponse(res, {message:'tasks has been deleted'})
+    return successResponse(res, 'tasks has been deleted')
 }
 
 module.exports = {updateTask, deleteTaskById, postTask, getTaskById, getTasks, deleteTasks}
