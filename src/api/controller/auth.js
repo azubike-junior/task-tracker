@@ -10,7 +10,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({username});
     
     if(existingUser) {
-        return badRequest(res, {message: 'User is not Available'})
+        return badRequest(res, 'User is not Available')
     }
 
     const user = new User({
@@ -20,23 +20,23 @@ const register = async (req, res) => {
 
     await user.save();
     user.password = undefined
-    return createResponse(res, {data: user})
+    return createResponse(res, user)
 }
 
 const login = async (req, res) => {
     const {username, password} = req.body;
 
     const user = await User.findOne({username});
-    
+
     if(!user){
-        return badRequest(res, {message:'Invalid Login credentials'}) 
+        return badRequest(res, 'Invalid Login credentials') 
     }
 
     if(!user.isMatchPassword(password)) {
-        return badRequest(res, {message:'Invalid Login credentials'})
+        return badRequest(res, 'Invalid Login credentials')
     }
     user.password = undefined
-    return successResponse(res, {data: user})
+    return successResponse(res, user)
 }
 
 module.exports = {register, login}  

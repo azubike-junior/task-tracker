@@ -32,7 +32,7 @@ const deleteTaskById = async (req, res) => {
     const task = await Task.findOne({_id})
 
     if(!task){
-        return notFound(res, {message: 'task not found'})
+        return notFound(res, 'task not found')
     }
 
     await Task.deleteOne({_id})
