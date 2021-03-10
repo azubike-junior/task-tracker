@@ -16,9 +16,10 @@ const register = async (req, res) => {
     const user = new User({
         username,
         password
-    }) 
+    })
 
     await user.save();
+    user.password = undefined
     return createResponse(res, {data: user})
 }
 
@@ -30,14 +31,14 @@ const login = async (req, res) => {
     console.log('====user', user)
 
     if(!user){
-        return badRequest(res, {message:'Invalid Login credentials'})
+        return badRequest(res, {message:'Invalid Login credentials'}) 
     }
 
     if(!user.isMatchPassword(password)) {
         return badRequest(res, {message:'Invalid Login credentials'})
     }
-
+    user.password = undefined
     return successResponse(res, {data: user})
 }
 
-module.exports = {register, login}
+module.exports = {register, login}  
