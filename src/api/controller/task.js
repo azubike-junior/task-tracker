@@ -7,8 +7,8 @@ const getTasks = async (req, res) => {
 }
 
 const postTask = async (req, res) => {
-    const { text, day } = req.body;
-    const newTask = {text, day, reminder: null}
+    const { text, day, reminder} = req.body;
+    const newTask = {text, day, reminder}
     const task = new Task(newTask);
     await task.save();   
 
