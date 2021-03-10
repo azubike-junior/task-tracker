@@ -12,8 +12,8 @@ const serverError = (res) => {
     res.status(SERVER_ERROR).send({message: 'something usual happened! please try again'})
 }
 
-const successResponse = (res, message) => {
-    res.status(SUCCESS).json({message})
+const successResponse = (res, data) => {
+    res.status(SUCCESS).json(data)
 }
 
 const notFound = (res, message) => {
