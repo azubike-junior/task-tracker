@@ -19,7 +19,7 @@ const register = async (req, res) => {
     }) 
 
     await user.save();
-    return createResponse(res, {message: 'you can now add your task'})
+    return createResponse(res, {data: user})
 }
 
 const login = async (req, res) => {
@@ -37,7 +37,7 @@ const login = async (req, res) => {
         return badRequest(res, {message:'Invalid Login credentials'})
     }
 
-    return successResponse(res, {message: 'welcome, you can now add your task'})
+    return successResponse(res, {data: user})
 }
 
 module.exports = {register, login}
