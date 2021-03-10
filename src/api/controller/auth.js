@@ -27,9 +27,7 @@ const login = async (req, res) => {
     const {username, password} = req.body;
 
     const user = await User.findOne({username});
-
-    console.log('====user', user)
-
+    
     if(!user){
         return badRequest(res, {message:'Invalid Login credentials'}) 
     }

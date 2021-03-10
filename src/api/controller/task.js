@@ -47,5 +47,9 @@ const updateTask = async (req, res) => {
 
     return createResponse(res, {data: updTask})
 }
+const deleteTasks = async (req, res) => {
+    Task.remove();
+    return successResponse(res, {message:'tasks has been deleted'})
+}
 
-module.exports = {updateTask, deleteTaskById, postTask, getTaskById, getTasks}
+module.exports = {updateTask, deleteTaskById, postTask, getTaskById, getTasks, deleteTasks}
