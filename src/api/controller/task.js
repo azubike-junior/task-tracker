@@ -48,7 +48,7 @@ const updateTask = async (req, res) => {
     return createResponse(res, {data: updTask})
 }
 const deleteTasks = async (req, res) => {
-    Task.remove();
+    await Task.deleteMany();
     return successResponse(res, {message:'tasks has been deleted'})
 }
 
