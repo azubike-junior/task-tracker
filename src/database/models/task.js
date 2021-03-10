@@ -13,7 +13,7 @@ const taskSchema = new Schema({
   
     reminder: {
         type: Boolean, 
-        default: false
+        default: ''
     }
 })
 
