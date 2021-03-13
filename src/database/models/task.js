@@ -14,7 +14,13 @@ const taskSchema = new Schema({
     reminder: {
         type: Boolean, 
         default: false
+    },
+
+    user: {
+        type: Schema.Types.ObjectId,
+        ref:'Task'
     }
+
 })
 
 module.exports = mongoose.model('Task', taskSchema)

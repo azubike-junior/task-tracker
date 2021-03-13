@@ -1,4 +1,5 @@
 const Task = require('../../database/models/task');
+const User = require('../../database/models/user');
 const { successResponse, notFound, createResponse } = require('../utils/http');
 
 const getTasks = async (req, res) => {
@@ -7,12 +8,18 @@ const getTasks = async (req, res) => {
 }
 
 const postTask = async (req, res) => {
-    const { text, day, reminder} = req.body;
-    const newTask = {text, day, reminder}
+    const {body: {text, day, reminder}, user} = req;
+    const newTask = {text, day, reminder, user: user._id}
     const task = new Task(newTask);
-    await task.save();   
+    await task.save(); 
 
-    return createResponse(res, task)
+    const userFound = await User.findOne({_id: user._id})
+    userFound.tasks.push(task);
+    await userFound.save()
+
+    userFound.password = undefined
+
+    return createResponse(res, userFound)
 }
 
 
@@ -24,6 +31,13 @@ const getTaskById = async  (req, res) => {
     if(!task){
         return notFound(res, 'task not found')
     }
+    return successResponse(res, task)
+}
+
+const getUserOfTask = async (req, res) => {
+    const {_id} = req.params;
+    const task = await Task.findOne({_id}).populate('user')
+
     return successResponse(res, task)
 }
 
@@ -52,4 +66,4 @@ const deleteTasks = async (req, res) => {
     return successResponse(res, 'tasks has been deleted')
 }
 
-module.exports = {updateTask, deleteTaskById, postTask, getTaskById, getTasks, deleteTasks}
+module.exports = {updateTask, deleteTaskById, postTask, getTaskById, getTasks, deleteTasks, getUserOfTask}

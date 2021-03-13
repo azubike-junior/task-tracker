@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { comparePassword, hashPassword } = require('../../api/utils/password');
 
-const Schema  = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     username: {
@@ -10,7 +10,13 @@ const userSchema = new Schema({
 
     password: {
         type: String
-    }
+    },
+    tasks: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Task'
+        }
+    ]
 })
 
 userSchema.pre('save', function(next){

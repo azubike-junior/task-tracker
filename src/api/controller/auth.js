@@ -39,4 +39,16 @@ const login = async (req, res) => {
     return successResponse(res, user)
 }
 
-module.exports = {register, login}  
+const deleteUsers = async(req, res) => {
+    await User.deleteMany();
+    return successResponse(res, 'users deleted')
+}
+
+const getTasksByUser = async (req, res) => {
+    const {_id} = req.params
+    const user = await User.findOne({_id}).populate('tasks')
+
+    return successResponse(res, user.tasks);
+}
+
+module.exports = {register, login, deleteUsers, getTasksByUser}  
