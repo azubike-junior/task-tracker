@@ -9,6 +9,8 @@ const app = express()
 
 connectToDatabase(config)
 
+app.use(cors())
+
 app.use((req, res, next) => {
    res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
@@ -19,8 +21,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-app.use(cors())
 
 const port = process.env.PORT || 3030
 
