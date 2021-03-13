@@ -40,7 +40,7 @@ const login = async (req, res) => {
 }
 
 const deleteUsers = async(req, res) => {
-    await User.remove();
+    await User.deleteMany();
     return successResponse(res, 'users deleted')
 }
 
