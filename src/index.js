@@ -11,11 +11,17 @@ connectToDatabase(config)
 
 app.use(express.json());
 
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,
+    optionSuccessStatus:200
+}
+
+app.use(cors(corsOptions))
+
 const port = process.env.PORT || 3030;
 
 app.use('/', router)
-
-app.use(cors())
 
 app.listen(port, () => console.log(`server running on port ${port}`))
 
