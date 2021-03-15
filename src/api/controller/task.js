@@ -19,7 +19,7 @@ const postTask = async (req, res) => {
 
     userFound.password = undefined
 
-    return createResponse(res, userFound)
+    return createResponse(res, task)
 }
 
 
