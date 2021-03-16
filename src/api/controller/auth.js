@@ -1,5 +1,6 @@
 const User = require('../../database/models/user');
 const { badRequest, createResponse, successResponse } = require('../utils/http');
+const { generateToken } = require('../utils/jwt');
 
 
 const register = async (req, res) => {
@@ -19,8 +20,8 @@ const register = async (req, res) => {
     })
 
     await user.save();
-    user.password = undefined
-    return createResponse(res, user)
+    const token = generateToken(user._id.toString())
+    return createResponse(res, token)
 }
 
 const login = async (req, res) => {
@@ -35,8 +36,8 @@ const login = async (req, res) => {
     if(!user.isMatchPassword(password)) {
         return badRequest(res, 'Invalid Login credentials')
     }
-    user.password = undefined
-    return successResponse(res, user)
+    const token = generateToken(user._id.toString())
+    return successResponse(res, token)
 }
 
 const deleteUsers = async(req, res) => {
@@ -45,7 +46,9 @@ const deleteUsers = async(req, res) => {
 }
 
 const getTasksByUser = async (req, res) => {
-    const {_id} = req.params
+    console.log('============================', req)
+    const {_id} = req.user
+    console.log('===========', _id)
     const user = await User.findOne({_id}).populate('tasks')
 
     return successResponse(res, user.tasks);

@@ -1,7 +1,7 @@
 const User = require("../../database/models/user")
 
 const getUser = async (req, res, next) => {
-    const {_id} = req.params
+    const {_id} = req.user
     const user = await User.findOne({_id});
     user.password = undefined
 

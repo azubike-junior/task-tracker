@@ -1,4 +1,4 @@
-const { BAD_REQUEST, CREATED, SERVER_ERROR, SUCCESS, NOT_FOUND } = require("../constants")
+const { BAD_REQUEST, CREATED, SERVER_ERROR, SUCCESS, NOT_FOUND, NOT_AUTHENTIACTED } = require("../constants")
 
 const badRequest = (res, message) => {
     res.status(BAD_REQUEST).json({message})
@@ -20,4 +20,8 @@ const notFound = (res, message) => {
     res.status(NOT_FOUND).json({message})
 }
 
-module.exports = {badRequest, createResponse, serverError, successResponse, notFound}
+const notAuthenticated = (res, message) => {
+    res.status(NOT_AUTHENTIACTED).json({message})
+}
+
+module.exports = {badRequest, createResponse, serverError, successResponse, notFound, notAuthenticated}
